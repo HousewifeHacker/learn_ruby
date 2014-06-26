@@ -42,4 +42,26 @@ class RPNCalculator
     @q[-1]
   end
 
+  def tokens(math_string)
+    math_array = math_string.split(" ")
+    math_array.map! do |n|
+      ["+","-","*","/"].include?(n) ? n.to_sym : n.to_i
+    end
+  end
+
+  def evaluate(math_string)
+    math_array = tokens(math_string)
+    actions = { :+ => lambda{self.plus}, :- => lambda{self.minus}, 
+      :* => lambda{self.times}, :/ => lambda{self.divide}}
+
+    math_array.each do |operation|
+      if actions.has_key?(operation)
+        actions[operation].call
+      else
+        self.push(operation)
+      end
+    end
+    self.value
+  end
+
 end
