@@ -1,5 +1,5 @@
 def hello
-  "Hello!"
+  'Hello!'
 end
 
 def greet(who)

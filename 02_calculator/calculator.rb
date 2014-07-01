@@ -1,17 +1,17 @@
-def add(x,y)
+def add(x, y)
   x + y
 end
 
-def subtract(x,y)
+def subtract(x, y)
   x - y
 end
 
 def sum(nums)
-  nums.inject(0){ |sum, num| sum + num }
+  nums.reduce(0, :+)
 end
 
 def multiply(*nums)
-  nums.inject(1){ |sum, num| sum * num }
+  nums.reduce(1, :*)
 end
 
 def power(x,y)
@@ -21,9 +21,5 @@ def power(x,y)
 end
 
 def factorial(x)
-  if x<= 1
-    1
-  else
-    multiply(x, factorial(x-1))
-  end
+  x <= 1 ? 1 : multiply(x, factorial(x - 1))
 end

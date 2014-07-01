@@ -1,16 +1,13 @@
 def reverser
-  backwards = []
-  words = yield.split(" ")
-  for word in words
-    backwards << word.reverse
-  end
-  backwards.join(" ")
+  words = yield.split(' ')
+  words.map! { |word| word.reverse }
+  words.join(' ')
 end
 
-def adder(n=1)
+def adder(n = 1)
   n + yield
 end
 
-def repeater(n=1)
-  n.times {yield}
+def repeater(n = 1)
+  n.times { yield }
 end

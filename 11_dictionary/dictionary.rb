@@ -1,7 +1,6 @@
 class Dictionary
-
   def initialize
-    @dict = Hash.new
+    @dict = {}
   end
 
   def add(item)
@@ -12,7 +11,7 @@ class Dictionary
       temp = item
     end
     @dict.merge!(temp)
-    return nil
+    nil
   end
 
   def keywords
@@ -37,8 +36,7 @@ class Dictionary
 
   def printable
     s = []
-    @dict.sort.each {|key, value| s << "[#{key}] \"#{value}\""}
+    @dict.sort.each { |key, value| s << "[#{key}] \"#{value}\"" }
     s.join("\n")
   end
-
 end

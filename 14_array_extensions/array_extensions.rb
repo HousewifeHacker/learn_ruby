@@ -1,15 +1,13 @@
 class Array
-
   def sum
-    self.inject(0) { | total, num | total + num }
+    reduce(0, :+)
   end
 
   def square
-    self.map { |num| num * num }
+    dup.square!
   end
 
   def square!
-    self.map! { |num| num * num }
+    map! { |num| num * num }
   end
-
 end

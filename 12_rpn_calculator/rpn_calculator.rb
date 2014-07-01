@@ -1,41 +1,40 @@
 class RPNCalculator
-
   def initialize
     @q = []
   end
 
   def push(num)
     @q << num.to_f
-    return nil
+    nil
   end
 
   def pop
-    raise("calculator is empty") if @q.empty?
+    fail('calculator is empty') if @q.empty?
     @q.pop
   end
 
   def plus
-    self.push( self.pop + self.pop )
-    return nil
+    push(pop + pop)
+    nil
   end
 
   def minus
-    a = self.pop
-    b = self.pop
-    self.push( b - a )
-    return nil
+    a = pop
+    b = pop
+    push(b - a)
+    nil
   end
 
   def times
-    self.push( self.pop * self.pop )
-    return nil
+    push(pop * pop)
+    nil
   end
 
   def divide
-    a = self.pop
-    b = self.pop
-    self.push( b / a)
-    return nil
+    a = pop
+    b = pop
+    push(b / a)
+    nil
   end
 
   def value
@@ -43,25 +42,21 @@ class RPNCalculator
   end
 
   def tokens(math_string)
-    math_array = math_string.split(" ")
+    math_array = math_string.split(' ')
     math_array.map! do |n|
-      ["+","-","*","/"].include?(n) ? n.to_sym : n.to_i
+      ['+', '-', '*', '/'].include?(n) ? n.to_sym : n.to_i
     end
   end
 
   def evaluate(math_string)
     math_array = tokens(math_string)
-    actions = { :+ => lambda{self.plus}, :- => lambda{self.minus}, 
-      :* => lambda{self.times}, :/ => lambda{self.divide}}
+    actions =
+      { :+ => -> { plus }, :- => -> { minus },
+        :* => -> { times }, :/ => -> { divide } }
 
     math_array.each do |operation|
-      if actions.has_key?(operation)
-        actions[operation].call
-      else
-        self.push(operation)
-      end
+      actions.key?(operation) ? actions[operation].call : push(operation)
     end
-    self.value
+    value
   end
-
 end
